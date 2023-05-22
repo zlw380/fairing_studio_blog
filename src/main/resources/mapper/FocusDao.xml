@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fairing.dao.FocusDao">
+
+    <resultMap id="focusMap" type="com.fairing.model.User">
+        <id column="id" property="id"/>
+        <result column="avatar" property="avatar"/>
+        <result column="create_time" property="createTime"/>
+        <result column="email" property="email"/>
+        <result column="nickname" property="nickname"/>
+        <result column="password" property="password"/>
+        <result column="type" property="type"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="username" property="username"/>
+    </resultMap>
+
+    <resultMap id="focusBlogMap" type="com.fairing.model.Blog">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="first_picture" property="firstPicture"/>
+        <result column="flag" property="flag"/>
+        <result column="views" property="views"/>
+        <result column="appreciation" property="appreciation"/>
+        <result column="share_statement" property="shareStatement"/>
+        <result column="commentabled" property="commentabled"/>
+        <result column="published" property="published"/>
+        <result column="recommend" property="recommend"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="type_id" property="typeId"/>
+        <result column="description" property="description"/>
+        <result column="user_id" property="userId"/>
+        <result column="name" property="typeName"/>
+    </resultMap>
+
+    <select id="focusListById" resultMap="focusMap">
+        select id,avatar,username,email
+        from (select t_user.id,b.id as b,avatar,username,email from t_user inner join t_focus as b on t_user.id=b.focusId) as temp
+        where b=#{id}
+    </select>
+
+    <select id="focusBlogListById" resultMap="focusBlogMap">
+        select id,appreciation,commentabled,content,create_time,description,first_picture,flag,published,recommend,share_statement,title,update_time,views,type_id,user_id,name
+        from(select t_blog.id as id,appreciation,commentabled,content,create_time,description,first_picture,flag,published,recommend,share_statement,title,update_time,views,type_id,user_id,t_type.id as t,name
+             from t_blog inner join t_type on t_blog.type_id = t_type.id) as temp
+        where user_id=#{id}
+    </select>
+
+    <select id="selectUserIdByBlogId" resultType="java.lang.Long">
+        select user_id from t_blog where id=#{id}
+    </select>
+
+    <select id="selectFocusListById" resultType="com.fairing.model.Focus">
+        select * from t_focus where id=#{id}
+    </select>
+
+    <insert id="addFocusById">
+        insert into t_focus (id,focusId,focusTime)
+        values (#{loginId},#{userId},#{date})
+    </insert>
+
+    <select id="selectFans" resultMap="focusMap">
+        select * from t_user
+        where id in(select id from t_focus where focusId=#{id})
+    </select>
+</mapper>
+
+

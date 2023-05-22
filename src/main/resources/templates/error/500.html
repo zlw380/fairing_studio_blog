@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="_fragments :: head(~{::title})">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500错误</title>
+    <link rel="stylesheet" href="../../static/lib/Semantic-UI-CSS-master/semantic.min.css"
+          th:href="@{/lib/Semantic-UI-CSS-master/semantic.min.css}">
+    <link rel="stylesheet" href="../../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <link rel="stylesheet" href="../../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+
+</head>
+
+<body th:style="'background-image: url('+@{/images/background.png}+');'">
+
+    <!--导航-->
+    <nav th:replace="_fragments :: menu(0)" style="background-color:#3E3E3E" class="ui attached segment m-padded-tb-mini m-shadow-small">
+      <div class="ui container">
+        <div class="ui inverted secondary stackable menu animate__animated animate__backInLeft">
+          <img style="margin-top:15px" class="m-mobile-hide" src="../../static/images/fairing.png" width="34" height="34" >
+          <h2 class="ui yellow header item">整 流 罩 工 作 室</h2>
+          <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+          <a href="#" class="m-item item m-mobile-hide"><i class="folder open icon"></i>分类</a>
+          <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+          <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+          <a href="#" class="active m-item item m-mobile-hide"><i class="info icon"></i>关于</a>
+          <div class="right item m-mobile-hide">
+            <div class="ui icon input">
+              <input type="text" placeholder="输入关键字搜索">
+              <i class="search link icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="#" style="background-color:#3E3E3E" class="ui me toggle inverted icon button m-right-top m-pc-hide">
+        <i class="sort icon"></i>
+      </a>
+    </nav>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="m-container-small m-padded-tb-massive">
+      <div class="ui error message m-padded-tb-huge" >
+        <div class="ui contianer">
+          <h2>500</h2>
+          <h4>对不起，服务异常，请联系管理员。</h4>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <!--底部footer-->
+    <footer class="ui inverted vertical segment">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="four wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">粉丝群</h4>
+                    <img class="" src="../../static/images/fairingstudio2.png" th:src="@{/images/fairingstudio2.png}" alt="" width="100" height="100">
+                </div>
+                <div class="three wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">技术支持</h4>
+                    <img style="margin-top:24px" src="../../static/images/fairing.png" th:src="@{/images/fairing.png}" width="38" height="38" >
+                    <h6 style="margin-top:4px" class="ui inverted header">整流罩工作室</h6>
+                    <!--
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">待完善</a><br>
+                        <a href="#" class="item">待完善</a><br>
+                        <a href="#" class="item">待完善</a><br>
+                    </div>
+                    -->
+                </div>
+                <div class="three wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">友情链接</h4><br>
+                    <img src="../../static/images/fairing.png" th:src="@{/images/fairing.png}" align="absmiddle" width="20" height="20">
+                    <a href="https://skin.fairingclub.top/">整流罩皮肤站</a><br><br>
+                    <img src="../../static/images/spacedock.png" th:src="@{/images/spacedock.png}" align="absmiddle" width="20" height="20">
+                    <a href="https://spacedock.info/">SpaceDock</a>
+                </div>
+                <div class="six wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">关于我们</h4>
+                    <p class="m-text-thin m-text-spaced m-opacity-mini">航空航天雷普工作室；粉丝群：1090395221</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-minimum">Copyright © 2021 侧卫卫 Designed by 侧卫卫</p>
+        </div>
+    </footer>
+
+    <th:block th:replace="_fragments :: script">
+      <script src="../../static/js/jquery-3.2.0.min.js" th:src="@{/js/jquery-3.2.0.min.js}"></script>
+      <script src="../../static/lib/Semantic-UI-CSS-master/semantic.min.js" th:src="@{/lib/Semantic-UI-CSS-master/semantic.min.js}"></script>
+      <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+      <script src="../../static/lib/prism/prism.js"></script>
+      <script src="../../static/lib/tocbot/tocbot.min.js"></script>
+      <script src="../../static/lib/qrcode/qrcode.min.js"></script>
+      <script src="../../static/lib/waypoints/jquery.waypoints.min.js"></script>
+    </th:block>
+
+    <style>
+        body
+        {
+            background-image:url('../../static/images/background7.jpg');
+            background-color:#CCCCCC;
+        }
+    </style>
+
+</body>
+
+</html>

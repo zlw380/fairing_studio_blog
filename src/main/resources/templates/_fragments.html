@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:fragment="head(title)">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}">fragments</title>
+    <link rel="icon" href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" href="../static/lib/Semantic-UI-CSS-master/semantic.min.css"
+          th:href="@{/lib/Semantic-UI-CSS-master/semantic.min.css}">
+    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../static/lib/highlight/agate.min.css" th:href="@{/lib/highlight/agate.min.css}">
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/lib/font-awesome/css/font-awesome.min.css" th:href="@{/lib/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="../static/lib/Pio-master/static/pio.css" th:href="@{/lib/Pio-master/static/pio.css}">
+
+    <link rel="stylesheet" href="../static/lib/katex/katex.css" th:href="@{/lib/katex/katex.css}">
+    <script defer src="../static/lib/katex/katex.js" th:src="@{/lib/katex/katex.js}"></script>
+    <script defer src="../static/lib/katex/contrib/auto-render.min.js" th:src="@{/lib/katex/contrib/auto-render.min.js}"
+            onload="renderMathInElement(document.body);"></script>
+
+</head>
+
+<body>
+
+    <!--导航-->
+    <nav th:fragment="menu(n)" style="background-color:#3E3E3E;z-index: 9999" class="ui attached segment m-padded-tb-mini m-shadow-small">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu animate__animated animate__backInLeft">
+                <img style="margin-top:15px" class="m-mobile-hide rotate rotated fa-spin" src="../static/images/fairing.png" th:src="@{/images/fairing.png}" width="34" height="34" >
+                <h2 class="ui yellow header item">整 流 罩 工 作 室</h2>
+                <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'" th:href="@{/}"><i class="home icon"></i>首页</a>
+                <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'" th:href="@{/types/-1}"><i class="folder open icon"></i>分类</a>
+                <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'" th:href="@{/tags/-1}"><i class="tags icon"></i>标签</a>
+                <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'" th:href="@{/archives}"><i class="clone icon"></i>归档</a>
+                <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'" th:href="@{/about}"><i class="info icon"></i>关于</a>
+                <div class="right item m-mobile-hide">
+                    <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                        <div class="ui icon input">
+                            <input type="text" name="query" placeholder="输入关键字搜索" th:value="${query}">
+                            <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                        </div>
+                    </form>
+                </div>
+
+                <a href="/admin" th:if="${session.user}==null" th:href="@{/admin}" class="m-item item m-mobile-hide"><i class="user icon"></i>登录</a>
+                <a href="/register" th:if="${session.user}==null" th:href="@{/register}" class="m-item item m-mobile-hide"><i class="sign in alternate icon"></i>注册</a>
+                <div th:if="${session.user}!=null" class="right m-item m-mobile-hide m-mobile-bottommargin menu">
+                    <div class="ui dropdown item">
+
+                        <img src="../static/images/fairing.png" th:src="@{${session.user.avatar}}" class="ui avatar image">&nbsp;
+                        <span th:text="${session.user.nickname}">admin</span>
+                        <i class="dropdown icon"></i>
+
+                        <div class="menu">
+<!--                            <div class="header">用户选项</div>-->
+                            <a href="#" th:href="@{/admin/logout}" class="item">
+                                注销
+                            </a>
+                            <a href="#" th:href="@{/admin/focus/{id}(id=${session.user.id})}" class="item" target="_blank">
+                                我的关注
+                            </a>
+                            <a href="#" th:href="@{/admin/fans/{id}(id=${session.user.id})}" class="item" target="_blank">
+                                我的粉丝
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" style="background-color:#3E3E3E" class="ui me toggle inverted icon button m-right-top m-pc-hide">
+            <i class="sort icon"></i>
+        </a>
+    </nav>
+
+    <!--底部footer-->
+    <footer th:fragment="footer" class="ui inverted vertical segment">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="four wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">粉丝群</h4>
+                    <img class="" src="../static/images/fairingstudio2.png" th:src="@{/images/fairingstudio2.png}" alt="" width="100" height="100">
+                </div>
+                <div class="three wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">技术支持</h4>
+                    <img style="margin-top:24px" src="../static/images/fairing.png" th:src="@{/images/fairing.png}" width="38" height="38" >
+                    <h6 style="margin-top:4px" class="ui inverted header">整流罩工作室</h6>
+                    <!--
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">待完善</a><br>
+                        <a href="#" class="item">待完善</a><br>
+                        <a href="#" class="item">待完善</a><br>
+                    </div>
+                    -->
+                </div>
+                <div class="three wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">友情链接</h4><br>
+                    <img src="../static/images/fairing.png" th:src="@{/images/fairing.png}" align="absmiddle" width="20" height="20">
+                    <a href="http://skin.fairingstudio.top/" target="_blank">整流罩皮肤站</a><br><br>
+                    <img src="../static/images/spacedock.png" th:src="@{/images/spacedock.png}" align="absmiddle" width="20" height="20">
+                    <a href="https://spacedock.info/" target="_blank">SpaceDock</a>
+                </div>
+                <div class="six wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">关于我们</h4>
+                    <p class="m-text-thin m-text-spaced m-opacity-mini">航空航天雷普工作室，关心人类航空航天事业的发展与进步；粉丝群：1090395221</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-minimum">Copyright © 2021-2022 侧卫卫 Designed by 侧卫卫 <a style="color: white" class="beian1 beian2" href="http://beian.miit.gov.cn/" th:href="@{http://beian.miit.gov.cn/}" target="_blank">辽ICP备2021008074号</a></p>
+        </div>
+    </footer>
+
+    <th:block th:fragment="script">
+        <script src="../static/js/jquery-3.2.0.min.js" th:src="@{/js/jquery-3.2.0.min.js}"></script>
+        <script src="../static/lib/Semantic-UI-CSS-master/semantic.min.js" th:src="@{/lib/Semantic-UI-CSS-master/semantic.min.js}"></script>
+        <script src="../static/lib/jquery.scrollTo-master/jquery.scrollTo.min.js" th:src="@{/lib/jquery.scrollTo-master/jquery.scrollTo.min.js}"></script>
+        <script src="../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
+        <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+        <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+        <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+        <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+        <script src="../static/lib/Pio-master/static/l2d.js" th:src="@{/lib/Pio-master/static/l2d.js}"></script>
+        <script src="../static/lib/Pio-master/static/pio.js" th:src="@{/lib/Pio-master/static/pio.js}"></script>
+
+        <script>
+            $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+        </script>
+        <div class="pio-container left">
+            <div class="pio-action"></div>
+            <canvas id="pio" width="300" height="300"></canvas>
+        </div>
+        <script>var pio = new Paul_Pio({
+            "mode":"fixed",
+            "hidden":true,
+            "content":{
+                "welcome":["你好，欢迎来到整流罩工作室！"],
+                "touch":["我是钢板我骄傲，我为祖国省布料！","硌吗？硌就对了！","这里是椎名锘！","欢迎来到整流罩工作室的博客！"],
+                "skin":["想看看我的新服装吗？","新衣服真漂亮~"],
+                "home":"点击这里回到首页！",
+                "link":"http://47.102.159.101/about",
+                "close":"QWQ 点击左下角小图标可以再次召唤我哦~",
+                "referer":"你通过 %t 来到了这里",
+                "custom":[
+                    {
+                        "selector":"#comment-form",
+                        "text":["欢迎参与本文评论，别发小广告噢~", "快来参加本文的评论吧~"]
+                    },
+                    {
+                        "selector":"#delete-blog",
+                        "text":["点一下就直接删除了哦，不能反悔哦~"]
+                    },
+                    {
+                        "selector":"#blog-headpicture",
+                        "text":["头图是必须要添加的哦，粘贴一下图片URL就可以啦~"]
+                    },
+                    {
+                        "selector":"#blog-introduce",
+                        "text":["文章简介会在首页文章列表中展示哦~"]
+                    },
+                    {
+                        "selector":"#publish-btn",
+                        "text":["不要忘记可以勾选左侧的复选框~"]
+                    },
+                    {
+                        "selector":"#fairing-spin",
+                        "text":["整流罩转转转~"]
+                    }
+                ]
+            },
+            "tips":true,
+            "model":["/lib/shiinano/model.json"]
+        });
+        </script>
+        <script>
+            <!--悬浮出现下划线-->
+            $('.beian1').hover(function (){
+                $('.beian2').toggleClass('m-text-underline');
+            });
+
+            <!--鼠标悬浮展开下拉菜单-->
+            $('.ui.dropdown').dropdown({
+                on: 'hover'
+            });
+        </script>
+    </th:block>
+
+</body>
+</html>

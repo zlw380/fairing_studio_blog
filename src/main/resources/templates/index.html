@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>整流罩工作室-首页</title>
+    <link rel="stylesheet" href="../static/lib/Semantic-UI-CSS-master/semantic.min.css"
+          th:href="@{/lib/Semantic-UI-CSS-master/semantic.min.css}">
+    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/lib/font-awesome/css/font-awesome.min.css" th:href="@{/lib/font-awesome/css/font-awesome.min.css}">
+
+</head>
+
+<body th:style="'background-image: url('+@{/images/background7.jpg}+');'">
+
+    <!--导航-->
+    <nav th:replace="_fragments :: menu(1)" style="background-color:#3E3E3E" class="ui attached segment m-padded-tb-mini m-shadow-small">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu animate__animated animate__backInLeft">
+                <img style="margin-top:15px" class="m-mobile-hide rotate rotated fa-spin" src="../static/images/fairing.png" th:src="@{/images/fairing.png}" width="34" height="34" >
+                <h2 class="ui yellow header item">整 流 罩 工 作 室</h2>
+                <a href="#" class="active m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="folder open icon"></i>分类</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>关于</a>
+                <div class="right item m-mobile-hide">
+                    <div class="ui icon input">
+                        <input type="text" placeholder="输入关键字搜索">
+                        <i class="search link icon"></i>
+                    </div>
+                </div>
+                <a href="admin/login.html" class="m-item item m-mobile-hide"><i class="user icon"></i>管理员登录</a>
+            </div>
+        </div>
+        <a href="#" style="background-color:#3E3E3E" class="ui me toggle inverted icon button m-right-top m-pc-hide">
+            <i class="sort icon"></i>
+        </a>
+    </nav>
+
+<!--    版头-->
+
+<!--    <div class="ui inverted vertical masthead center aligned segment" style="height: 100%;width: 100%;background-image: url('../static/images/ksp4.png')">
+
+    </div>-->
+
+
+    <!--中间内容-->
+    <div id="waypoint" class="m-container-index m-padded-tb-large animate__animated animate__fadeIn">
+        <div class="ui container">
+            <div class="ui stackable grid">
+                <!--左边栏-->
+                <div class="eleven wide column">
+
+                    <!--列表表头-->
+                    <div class="ui top attached segment">
+                        <div class="ui middle aligned two column grid">
+                            <div class="left aligned column">
+                                <h3 class="ui black header">更新列表</h3>
+                            </div>
+                            <div class="right aligned column m-text-widespaced m-text-thicker">
+                                共<h4 class="ui yellow header m-inline-block" th:text="${page.totalElements}">X</h4>篇文章
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--列表内容-->
+                    <div class="ui attached segment m-padded-lr-large">
+                        <div class="ui padded vertical segment m-padded-tb-large" th:each="blog : ${page.content}">
+                            <div class="ui middle aligned mobile reversed stackable grid">
+                                <div class="ten wide column">
+                                    <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black hover3 hover4" th:text="${blog.title}">浅析长征八号系列运载火箭与我国商业航天发展</a></h3>
+                                    <p th:text="|${blog.description}......|">引言 2020年12月22日12时37分，我国自主研制的新一代中型运载火箭长征八号首次飞行试验在中国海南文昌航天发射场顺利实施，火箭飞行正常，试验取得圆满成功。</p>
+                                    <div class="ui stackable grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item">
+                                                    <img src="../static/images/fairingclub.jpg" th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">admin</a></div>
+                                                </div>
+                                                <div class="item" style="margin-top: 3px">
+                                                    <i class="calendar icon m-margin-r-small" style="margin-top: -3px"></i>
+                                                    <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2021-06-21</span>
+                                                </div>
+                                                <div class="item" style="margin-top: 3px">
+                                                    <i class="eye icon m-margin-r-small" style="margin-top: -2px"></i>
+                                                    <span th:text="${blog.views}">123</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned five wide column">
+                                            <a href="#" th:href="@{/types/{id}(id=${blog.type.id})}" target="_blank" class="ui basic black label m-padded-tiny" th:text="${blog.type.name}">查看全文</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="six wide column">
+                                    <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                        <img src="https://unsplash.it/800/450?image=0" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/*-->
+                        <div class="ui padded vertical segment m-padded-tb-large">
+                            <div class="ui mobile reversed stackable grid">
+                                <div class="ten wide column">
+                                    <h3 class="ui header">浅析长征八号系列运载火箭与我国商业航天发展</h3>
+                                    <p>引言 2020年12月22日12时37分，我国自主研制的新一代中型运载火箭长征八号首次飞行试验在中国海南文昌航天发射场顺利实施，火箭飞行正常，试验取得圆满成功。</p>
+                                    <div class="ui stackable grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item">
+                                                    <img src="../static/images/fairingclub.jpg" th:src="@{/images/fairingclub.jpg}" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header">admin</a></div>
+                                                </div>
+                                                <div class="item">
+                                                    <i class="calendar icon"></i> 2021-06-21
+                                                </div>
+                                                <div class="item">
+                                                    <i class="eye icon"></i> 123
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned five wide column">
+                                            <a href="#" target="_blank" class="ui basic black label m-padded-tiny">查看全文</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="six wide column">
+                                    <a href="#" target="_blank">
+                                        <img src="https://unsplash.it/800/450?image=0" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui padded vertical segment m-padded-tb-large">
+                            <div class="ui mobile reversed stackable grid">
+                                <div class="ten wide column">
+                                    <h3 class="ui header">浅析长征八号系列运载火箭与我国商业航天发展</h3>
+                                    <p>引言 2020年12月22日12时37分，我国自主研制的新一代中型运载火箭长征八号首次飞行试验在中国海南文昌航天发射场顺利实施，火箭飞行正常，试验取得圆满成功。</p>
+                                    <div class="ui stackable grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item">
+                                                    <img src="../static/images/fairingclub.jpg" th:src="@{/images/fairingclub.jpg}" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header">admin</a></div>
+                                                </div>
+                                                <div class="item">
+                                                    <i class="calendar icon"></i> 2021-06-21
+                                                </div>
+                                                <div class="item">
+                                                    <i class="eye icon"></i> 123
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned five wide column">
+                                            <a href="#" target="_blank" class="ui basic black label m-padded-tiny">查看全文</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="six wide column">
+                                    <a href="#" target="_blank">
+                                        <img src="https://unsplash.it/800/450?image=0" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--*/-->
+                    </div>
+
+                    <!--列表底部-->
+                    <div class="ui bottom attached segment">
+                        <div class="ui middle aligned three column grid">
+                            <div class="column">
+                                <a href="#" th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}" class="ui black button">上一页</a>
+                            </div>
+                            <div class="center aligned column">
+                                <img src="../static/images/fairingclub.jpg" th:src="@{/images/fairingclub.jpg}" width="34" height="34" >
+                                <h6 style="margin-top:-4px" class="ui header">FairingStudio!</h6>
+                            </div>
+                            <div class="right aligned column">
+                                <a href="#" th:href="@{/(page=${page.number}+1)}" th:unless="${page.last}" class="ui black button">下一页</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--右边栏-->
+                <div class="five wide column">
+
+                    <!--简介-->
+
+                    <!--头部-->
+                    <div class="ui middle aligned center aligned yellow top attached segment">
+                        <img src="../static/images/fairingclub.jpg" th:src="@{/images/fairingclub.jpg}" width="70" height="70" alt="" class="ui img m-margin-tb-normal m-mobile-aboutimg rotate rotated fa-spin" id="fairing-spin">
+                        <h2 class="ui header m-margin-tb-small m-myfont m-text-thin m-mobile-abouttext">整流罩工作室</h2>
+                    </div>
+                    <!--简介-->
+                    <div class="ui attached segment m-padded-about m-mobile-introduce">
+                        <p class="m-xiaokai">这是一间航空航天雷普工作室，关心人类航空航天事业的发展与进步。</p>
+                        <p class="m-xiaokai">喜欢用打了很多mod的ksp还原各种航天器并模拟发射任务然后录点小视频，再加点特效。</p>
+                        <p class="m-xiaokai">自制用含糖配合物作为固体燃料的探空小火箭，一边做还可以一边舔药柱。</p>
+                    </div>
+                    <!--推广按钮-->
+                    <div class="ui middle aligned bottom attached segment">
+                        <button id="bilibili" class="ui inverted pink button m-margin-l-large m-padded-aboutbutton m-mobile-hide">bilibili</button>
+                        <a href="http://skin.fairingstudio.top/" target="_blank" id="skin" class="ui inverted primary button m-margin-l-small m-padded-aboutbutton m-mobile-hide" data-content="点击进入整流罩皮肤站">皮肤站</a>
+                    </div>
+
+                    <div class="ui bilibilied flowing popup transition hidden">
+                        <div class="ui yellow basic label">
+                            <h5 class="ui center aligned header">扫码关注工作室B站账号</h5>
+                            <div class="ui centered images">
+                                <div class="image">
+                                    <img src="../static/images/bilibilied.png" th:src="@{/images/bilibilied.png}" alt="" class="ui image" width="180" height="180">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--分类-->
+
+                    <!--分类表头-->
+                    <div class="ui secondary top attached segment m-padded-tb">
+                        <div class="ui middle aligned two column grid">
+                            <div class="column">
+                                <h4 style="margin-top:2px" class="ui black header"><i class="open folder icon"></i>分类</h4>
+                            </div>
+                            <div class="right aligned column m-text">
+                                <a href="#" th:href="@{types/-1}" target="_blank" class="m-black">查看更多<i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--分类列表-->
+                    <div class="ui yellow bottom attached segment">
+                        <div class="ui fluid vertical menu">
+                            <a href="#" th:href="@{/types/{id}(id=${type.id})}" target="_blank" class="item" th:each="type : ${types}">
+                                <span th:text="${type.name}">发射任务</span>
+                                <div class="ui yellow label" th:text="${#arrays.length(type.blogs)}">23</div>
+                            </a>
+                            <!--/*-->
+                            <a href="#" class="item">
+                                航天科普
+                                <div class="ui yellow label">12</div>
+                            </a>
+                            <a href="#" class="item">
+                                资源分享
+                                <div class="ui grey label">3</div>
+                            </a>
+                            <a href="#" class="item">
+                                站务公告
+                                <div class="ui yellow label">2</div>
+                            </a>
+                            <a href="#" class="item">
+                                技术交流
+                                <div class="ui grey label">3</div>
+                            </a>
+                            <a href="#" class="item">
+                                工作室动态
+                                <div class="ui yellow label">3</div>
+                            </a>
+                            <!--*/-->
+                        </div>
+                    </div>
+
+
+                    <!--标签-->
+
+                    <!--标签表头-->
+                    <div class="ui secondary top attached segment m-padded-tb">
+                        <div class="ui middle aligned two column grid">
+                            <div class="column">
+                                <h4 style="margin-top:2px" class="ui black header"><i class="paperclip icon"></i>标签</h4>
+                            </div>
+                            <div class="right aligned column m-text">
+                                <a href="#" th:href="@{tags/-1}" target="_blank" class="m-black">查看更多<i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--标签池-->
+                    <div class="ui yellow bottom attached segment">
+                        <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" class="ui black basic left pointing label m-margin-tb-tiny" th:each="tag : ${tags}">
+                            <span th:text="${tag.name}">科普</span>
+                            <div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
+                        </a>
+                        <!--/*-->
+                        <a href="#" target="_blank" class="ui basic grey left pointing label m-margin-tb-tiny">
+                            中国发射 <div class="detail">7</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui basic grey left pointing label m-margin-tb-tiny">
+                            美国发射 <div class="detail">11</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui basic grey left pointing label m-margin-tb-tiny">
+                            俄罗斯发射 <div class="detail">5</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui basic grey left pointing label m-margin-tb-tiny">
+                            欧洲发射 <div class="detail">2</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui basic grey left pointing label m-margin-tb-tiny">
+                            SpaceX <div class="detail">11</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui basic grey left pointing label m-margin-tb-tiny">
+                            新闻 <div class="detail">12</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui basic grey left pointing label m-margin-tb-tiny">
+                            中国空间站 <div class="detail">5</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui basic grey left pointing label m-margin-tb-tiny">
+                            任务跟踪 <div class="detail">4</div>
+                        </a>
+                        <a href="#" target="_blank" class="ui basic grey left pointing label m-margin-tb-tiny">
+                            技术 <div class="detail">23</div>
+                        </a>
+                        <!--*/-->
+                    </div>
+
+
+                    <!--推荐文章-->
+
+                    <!--推荐表头-->
+                    <div class="ui secondary top attached segment m-padded-tb">
+                        <h4 style="margin-top:2px" class="ui black header"><i class="bookmark icon"></i>推荐文章</h4>
+                    </div>
+                    <!--推荐列表-->
+                    <div class="ui yellow bottom attached segment">
+                        <div class="ui fluid vertical menu">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black hover1 hover2 item" th:each="blog : ${recommendBlogs}">
+                                <div class="ui grid">
+                                    <div class="one wide column" style="float: left;margin-top: 2px">
+                                        <i class="circle icon m-point-index"></i>
+                                    </div>
+                                    <div class="fourteen wide column m-text-thicker m-text-index-lined" th:text="${blog.title}">文章1</div>
+                                </div>
+                            </a>
+                        <!--<div class="ui fluid segments">
+                            <div class="ui segment" th:each="blog : ${recommendBlogs}">
+                                <i class="circle icon m-margin-r-small m-point-decorate"></i><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black hover1 hover2" th:text="${blog.title}">文章1</a>
+                            </div>-->
+                            <!--/*-->
+                            <a href="#" target="_blank" class="m-black hover1 hover2 item">
+                                <div class="ui grid">
+                                    <div class="one wide column" style="float: left;margin-top: 2px">
+                                        <i class="circle icon m-point-index"></i>
+                                    </div>
+                                    <div class="twelve wide column m-text-thicker m-text-index-lined">文章1</div>
+                                </div>
+                            </a>
+                            <!--*/-->
+                        </div>
+                    </div>
+
+
+                    <!--工作室二维码-->
+                    <h4 class="ui horizontal divider inverted header m-margin-top-larger">
+                        扫码关注整流罩工作室B站账号
+                    </h4>
+                    <div class="ui centered card" style="width: 16em">
+                        <img src="../static/images/bilibili.png" th:src="@{/images/bilibili.png}" alt="" class="ui medium rounded image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--组合工具条-->
+    <div id="toolbar" class="m-padded-tool m-fixed m-right-bottom" style="display: none">
+        <div class="ui vertical icon buttons">
+            <div id="toTop-button" class="ui icon yellow button" data-content="返回顶部"><i class="large chevron up icon"></i></div>
+        </div>
+    </div>
+
+    <!--底部footer-->
+    <footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="four wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">粉丝群</h4>
+                    <img class="" src="../static/images/fairingstudio2.png" th:src="@{/images/fairingstudio2.png}" alt="" width="100" height="100">
+                </div>
+                <div class="three wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">技术支持</h4>
+                    <img style="margin-top:24px" src="../static/images/fairing.png" th:src="@{/images/fairing.png}" width="38" height="38" >
+                    <h6 style="margin-top:4px" class="ui inverted header">整流罩工作室</h6>
+                    <!--
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">待完善</a><br>
+                        <a href="#" class="item">待完善</a><br>
+                        <a href="#" class="item">待完善</a><br>
+                    </div>
+                    -->
+                </div>
+                <div class="three wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">友情链接</h4><br>
+                    <img src="../static/images/fairing.png" th:src="@{/images/fairing.png}" align="absmiddle" width="20" height="20">
+                    <a href="https://skin.fairingclub.top/">整流罩皮肤站</a><br><br>
+                    <img src="../static/images/spacedock.png" th:src="@{/images/spacedock.png}" align="absmiddle" width="20" height="20">
+                    <a href="https://spacedock.info/">SpaceDock</a>
+                </div>
+                <div class="six wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">关于我们</h4>
+                    <p class="m-text-thin m-text-spaced m-opacity-mini">航空航天雷普工作室；粉丝群：1090395221</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-minimum">Copyright © 2021 侧卫卫 Designed by 侧卫卫</p>
+        </div>
+    </footer>
+
+    <th:block th:replace="_fragments :: script">
+        <script src="../static/js/jquery-3.2.0.min.js" th:src="@{/js/jquery-3.2.0.min.js}"></script>
+        <script src="../static/lib/Semantic-UI-CSS-master/semantic.min.js" th:src="@{/lib/Semantic-UI-CSS-master/semantic.min.js}"></script>
+        <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+        <script src="../static/lib/prism/prism.js"></script>
+        <script src="../static/lib/tocbot/tocbot.min.js"></script>
+        <script src="../static/lib/qrcode/qrcode.min.js"></script>
+        <script src="../static/lib/waypoints/jquery.waypoints.min.js"></script>
+    </th:block>
+
+    <!--<div class="pio-container left">
+        <div class="pio-action"></div>
+        <canvas id="pio" width="300" height="300"></canvas>
+    </div>
+    <script>var pio = new Paul_Pio({
+        "mode":"fixed",
+        "hidden":true,
+        "content":{
+            "welcome":["你好，欢迎来到整流罩工作室！"],
+            "touch":["我是钢板我骄傲，我为祖国省布料！","硌吗？硌就对了！"],
+            "skin":["想看看我的新服装吗？","新衣服真漂亮~"],
+            "home":"点击这里回到首页！",
+            "link":"./about.html",
+            "close":"QWQ 点击左下角小图标可以再次召唤我哦~",
+            "referer":"你通过 %t 来到了这里",
+            "custom":[
+                {
+                    "selector":".ui.form",
+                    "text":["欢迎参与本文评论，别发小广告噢~", "快来参加本文的评论吧~"]
+                }
+            ]
+        },
+        "tips":true,
+        "model":["/lib/shiinano/model.json"]
+    });
+    </script>-->
+
+    <script>
+        <!--手机端点击展开导航栏-->
+        $('.me.toggle').click(function (){
+            $('.m-item').toggleClass('m-mobile-hide');
+        });
+
+        <!--图标旋转效果-->
+        $('.rotate').hover(function (){
+            $('.rotated').toggleClass('animate__animated animate__flip');
+        });
+
+        $('#click').popup({
+            popup: $('.clicked.popup'),
+            on: 'click',
+            position: 'top center'
+        })
+
+        <!--返回顶部-->
+        $('#toTop-button').popup();
+
+        <!--平滑滚动-->
+        $('#toTop-button').click(function (){
+            $(window).scrollTo(0,500);
+        });
+
+        <!--滚动侦测-->
+        var waypoint = new Waypoint({
+            element: document.getElementById('waypoint'),
+            handler: function(direction){
+                if (direction == 'down'){
+                    $('#toolbar').show(100);
+                }else{
+                    $('#toolbar').hide(500);
+                }
+                console.log('Scrolled to waypoint!')
+            }
+        })
+
+        <!--弹出B站二维码-->
+        $('#bilibili').popup({
+            popup: $('.bilibilied'),
+            position: 'top center'
+        })
+
+        <!--弹出皮肤站提示文字-->
+        $('#skin').popup()
+
+        <!--文章标题悬浮出现下划线-->
+        /*$('.hover1').hover(function (){
+            $('.hover2').toggleClass('m-text-underline');
+        });
+        $('.hover3').hover(function (){
+            $('.hover4').toggleClass('m-text-underline');
+        });*/
+    </script>
+
+    <style>
+        body
+        {
+            background:url('../static/images/background3.jpg');
+            background-color:#cccccc;
+        }
+
+    </style>
+
+</body>
+</html>

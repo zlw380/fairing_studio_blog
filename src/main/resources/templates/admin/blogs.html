@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章管理页</title>
+    <link rel="stylesheet" href="../../static/lib/Semantic-UI-CSS-master/semantic.min.css"
+          th:href="@{/lib/Semantic-UI-CSS-master/semantic.min.css}">
+    <link rel="stylesheet" href="../../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <link rel="stylesheet" href="../../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+
+</head>
+
+<body th:style="'background-image: url('+@{/images/background12.jpg}+');'">
+
+    <!--导航-->
+    <nav th:replace="admin/_fragments :: menu(1)" style="background-color:#3E3E3E" class="ui attached segment m-padded-tb-mini m-shadow-small">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <img style="margin-top:15px" class="m-mobile-hide rotate rotated fa-spin" src="../../static/images/fairing.png" th:src="@{/images/fairing.png}" width="34" height="34" >
+                <h2 class="ui yellow header item">后 台 管 理 页 面</h2>
+                <a href="./blogs.html" class="active m-item item m-mobile-hide"><i class="file icon"></i>文章</a>
+                <a href="./types.html" class="m-item item m-mobile-hide"><i class="folder open icon"></i>分类</a>
+                <a href="./tags.html" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+                <div class="right m-item m-mobile-hide m-mobile-bottommargin menu">
+                    <div class="ui dropdown item">
+                        <div class="text">
+                            <img src="../../static/images/fairing.png" th:src="@{/images/fairing.png}" alt="" class="ui avatar image">
+                            admin
+                        </div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" style="background-color:#3E3E3E" class="ui me toggle inverted icon button m-right-top m-pc-hide">
+            <i class="sort icon"></i>
+        </a>
+    </nav>
+    <div class="ui attached pointing menu">
+        <div class="ui container">
+            <div class="right menu">
+                <a href="./blogs-input.html" th:href="@{/admin/blogs/input}" class="item">发布文章</a>
+                <a href="./blogs.html" th:href="@{/admin/blogs}" class="orange active item">管理文章</a>
+            </div>
+        </div>
+    </div>
+
+    <!--中间内容-->
+    <div id="waypoint" class="m-container-auto m-padded-tb-big">
+        <div class="ui container">
+            <div class="ui yellow segment form m-padded-admin">
+                <input type="hidden" name="page">
+                <div class="inline fields">
+                    <div class="field" style="margin-top: 14px">
+                        <input type="text" name="title" placeholder="输入标题查询">
+                    </div>
+                    <div class="field" style="margin-top: 14px">
+                        <div class="ui type selection dropdown">
+                            <input type="hidden" name="typeId">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">选择分类</div>
+                            <div class="menu">
+                                <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">发射任务</div>
+                                <!--/*--><div class="item" data-value="2">航天科普</div>
+                                <div class="item" data-value="3">资源分享</div>
+                                <div class="item" data-value="4">站务公告</div><!--*/-->
+                            </div>
+                        </div>
+                        <button id="clear-btn" class="ui basic primary medium button">清空分类</button>
+                    </div>
+                    <div class="field" style="margin-top: 14px">
+                        <div class="ui checkbox">
+                            <input type="checkbox" id="recommend" name="recommend">
+                            <label for="recommend">推荐文章</label>
+                        </div>
+                    </div>
+                    <div class="class field m-margin-l-large" style="margin-top: 14px">
+                        <button type="button" id="search-btn" class="ui black basic medium button"><i class="search icon"></i>搜索</button>
+                    </div>
+                </div>
+            </div>
+            <div id="table-container">
+                <table th:fragment="blogList" class="ui selectable compact table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>标题</th>
+                        <th>类型</th>
+                        <th>推荐</th>
+                        <th>状态</th>
+                        <th>更新时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="blog,iterStat : ${page.content}">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${blog.title}">浅析长征八号系列运载火箭与我国商业航天发展</td>
+                        <td th:text="${blog.type.name}" style="min-width:90px">航天科普</td>
+                        <td th:text="${blog.recommend} ? '是' : '否'" style="min-width:60px">是</td>
+                        <td th:text="${blog.published} ? '已发布' : '草稿'" style="min-width:80px">草稿</td>
+                        <td th:text="${blog.updateTime}">2021-06-28 13:05</td>
+                        <td style="min-width:150px">
+                            <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini orange basic button m-margin-tb-mini">编辑</a>
+                            <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" class="ui mini red basic button m-margin-tb-mini" id="delete-blog">删除</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="7">
+                            <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
+                                <a onclick="page(this)" th:attr="data-page=${page.number}-1" th:unless="${page.first}" class="item">上一页</a>
+                                <a onclick="page(this)" th:attr="data-page=${page.number}+1" th:unless="${page.last}" class="item">下一页</a>
+                            </div>
+                            <a href="./blogs-input.html" th:href="@{/admin/blogs/input}" class="ui right floated blue button">写文章</a>
+                        </th>
+                    </tr>
+                    </tfoot>
+                </table>
+                <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                    <i class="close icon"></i>
+                    <div class="header">提示</div>
+                    <p th:text="${message}">操作成功！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--组合工具条-->
+    <div id="toolbar" class="m-padded-tool m-fixed m-right-bottom" style="display: none">
+        <div class="ui vertical icon buttons">
+            <div id="toTop-button" class="ui icon yellow button" data-content="返回顶部"><i class="large chevron up icon"></i></div>
+        </div>
+    </div>
+
+    <!--底部footer-->
+    <footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="four wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">粉丝群</h4>
+                    <img class="" src="../../static/images/fairingstudio2.png" alt="" width="100" height="100">
+                </div>
+                <div class="three wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">技术支持</h4>
+                    <img style="margin-top:24px" src="../../static/images/fairing.png" width="38" height="38" >
+                    <h6 style="margin-top:4px" class="ui inverted header">整流罩工作室</h6>
+                    <!--
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">待完善</a><br>
+                        <a href="#" class="item">待完善</a><br>
+                        <a href="#" class="item">待完善</a><br>
+                    </div>
+                    -->
+                </div>
+                <div class="three wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">友情链接</h4><br>
+                    <img src="../../static/images/fairing.png" align="absmiddle" width="20" height="20">
+                    <a href="https://skin.fairingclub.top/">整流罩皮肤站</a><br><br>
+                    <img src="../../static/images/spacedock.png" align="absmiddle" width="20" height="20">
+                    <a href="https://spacedock.info/">SpaceDock</a>
+                </div>
+                <div class="six wide column">
+                    <h4 style="margin-top:24px" class="ui inverted header">关于我们</h4>
+                    <p class="m-text-thin m-text-spaced m-opacity-mini">航空航天雷普工作室；粉丝群：1090395221</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-minimum">Copyright © 2021 侧卫卫 Designed by 侧卫卫</p>
+        </div>
+    </footer>
+
+    <th:block th:replace="_fragments :: script">
+        <script src="../../static/js/jquery-3.2.0.min.js" th:src="@{/js/jquery-3.2.0.min.js}"></script>
+        <script src="../../static/lib/Semantic-UI-CSS-master/semantic.min.js" th:src="@{/lib/Semantic-UI-CSS-master/semantic.min.js}"></script>
+        <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+        <script src="../../static/lib/prism/prism.js"></script>
+        <script src="../../static/lib/tocbot/tocbot.min.js"></script>
+        <script src="../../static/lib/qrcode/qrcode.min.js"></script>
+        <script src="../../static/lib/waypoints/jquery.waypoints.min.js"></script>
+    </th:block>
+
+    <script>
+        <!--手机端点击展开导航栏-->
+        $('.me.toggle').click(function (){
+            $('.m-item').toggleClass('m-mobile-hide');
+        });
+
+        <!--图标旋转效果-->
+        $('.rotate').hover(function (){
+            $('.rotated').toggleClass('animate__animated animate__flip');
+        });
+    </script>
+
+    <script>
+        <!--鼠标悬浮展开下拉菜单-->
+        $('.ui.dropdown').dropdown({
+            on: 'hover'
+        });
+
+        <!--返回顶部-->
+        $('#toTop-button').popup();
+
+        <!--平滑滚动-->
+        $('#toTop-button').click(function (){
+            $(window).scrollTo(0,500);
+        });
+
+        <!--滚动侦测-->
+        var waypoint = new Waypoint({
+            element: document.getElementById('waypoint'),
+            handler: function(direction){
+                if (direction == 'down'){
+                    $('#toolbar').show(100);
+                }else{
+                    $('#toolbar').hide(500);
+                }
+                console.log('Scrolled to waypoint!')
+            }
+        })
+
+        <!--获取data-page值-->
+        function page(obj){
+            $("[name='page']").val($(obj).data("page"));
+            loaddata();
+        }
+
+        <!--清空分类按钮-->
+        $('#clear-btn')
+            .on('click', function() {
+                $('.ui.type.dropdown')
+                    .dropdown('clear')
+                ;
+            })
+        ;
+
+        <!--点击搜索按钮-->
+        $("#search-btn").click(function () {
+            $("[name='page']").val(0);
+            loaddata();
+        });
+
+        <!--局部刷新-->
+        function loaddata() {
+            $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search",{
+                title : $("[name='title']").val(),
+                typeId : $("[name='typeId']").val(),
+                recommend : $("[name='recommend']").prop('checked'),
+                page : $("[name='page']").val()
+            });
+        }
+
+        <!--关闭提示框-->
+        $('.close.icon')
+            .on('click',function(){
+                $(this)
+                    .closest('.success.message')
+                    .transition('fade');
+            });
+    </script>
+
+    <style>
+        body
+        {
+            background:url('../../static/images/background7.jpg');
+            background-color:#cccccc;
+        }
+    </style>
+
+</body>
+</html>

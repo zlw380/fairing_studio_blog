@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎登录！</title>
+    <link rel="icon" href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" href="../../static/lib/Semantic-UI-CSS-master/semantic.min.css"
+          th:href="@{/lib/Semantic-UI-CSS-master/semantic.min.css}">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}">
+    <link rel="stylesheet" href="../../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <link rel="stylesheet" href="../../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../../static/lib/font-awesome/css/font-awesome.min.css" th:href="@{/lib/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="../../static/lib/Pio-master/static/pio.css" th:href="@{/lib/Pio-master/static/pio.css}">
+    <meta http-equiv="refresh" content="5;url= http://localhost:8080/admin">
+
+</head>
+
+<body th:style="'background-image: url('+@{/images/background12.jpg}+');'">
+
+<!--导航-->
+<nav style="background-color:#3E3E3E" class="ui attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <img style="margin-top:15px" class="m-mobile-hide rotate rotated fa-spin" src="../../static/images/fairing.png" th:src="@{/images/fairing.png}" width="34" height="34" >
+            <h2 class="ui yellow header item">后 台 管 理 页 面</h2>
+        </div>
+    </div>
+    <a href="#" style="background-color:#3E3E3E" class="ui me toggle inverted icon button m-right-top m-pc-hide">
+        <i class="sort icon"></i>
+    </a>
+</nav>
+
+<br><br><br><br>
+
+<!--中间内容-->
+<div id="waypoint" class="m-container-small m-padded-tb-big">
+    <div class="ui center aligned container">
+        <div class="ui large yellow segment m-padded-lr-index">
+            <br><h2 style="color: #3E3E3E">恭喜您，注册成功！</h2><br>
+            <p style="color: #3E3E3E">您现在可以登录并发表文章了。本页面将于3秒后自动跳转至登录页面。如果网页没有自动跳转，<a th:href="@{/admin}">请单击此处</a>。</p><br>
+        </div>
+    </div>
+</div>
+
+<br><br><br><br>
+
+<!--组合工具条-->
+<div id="toolbar" class="m-padded-tool m-fixed m-right-bottom" style="display: none">
+    <div class="ui vertical icon buttons">
+        <div id="toTop-button" class="ui icon yellow button" data-content="返回顶部"><i class="large chevron up icon"></i></div>
+    </div>
+</div>
+
+<!--底部footer-->
+<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="four wide column">
+                <h4 style="margin-top:24px" class="ui inverted header">粉丝群</h4>
+                <img class="" src="../../static/images/fairingstudio2.png" alt="" width="100" height="100">
+            </div>
+            <div class="three wide column">
+                <h4 style="margin-top:24px" class="ui inverted header">技术支持</h4>
+                <img style="margin-top:24px" src="../../static/images/fairing.png" width="38" height="38" >
+                <h6 style="margin-top:4px" class="ui inverted header">整流罩工作室</h6>
+                <!--
+                <div class="ui inverted link list">
+                    <a href="#" class="item">待完善</a><br>
+                    <a href="#" class="item">待完善</a><br>
+                    <a href="#" class="item">待完善</a><br>
+                </div>
+                -->
+            </div>
+            <div class="three wide column">
+                <h4 style="margin-top:24px" class="ui inverted header">友情链接</h4><br>
+                <img src="../../static/images/fairing.png" align="absmiddle" width="20" height="20">
+                <a href="https://skin.fairingclub.top/">整流罩皮肤站</a><br><br>
+                <img src="../../static/images/spacedock.png" align="absmiddle" width="20" height="20">
+                <a href="https://spacedock.info/">SpaceDock</a>
+            </div>
+            <div class="six wide column">
+                <h4 style="margin-top:24px" class="ui inverted header">关于我们</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">航空航天雷普工作室；粉丝群：1090395221</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-minimum">Copyright © 2021 侧卫卫 Designed by 侧卫卫</p>
+    </div>
+</footer>
+
+<th:block th:replace="_fragments :: script">
+    <script src="../../static/js/jquery-3.2.0.min.js" th:src="@{/js/jquery-3.2.0.min.js}"></script>
+    <script src="../../static/lib/Semantic-UI-CSS-master/semantic.min.js" th:src="@{/lib/Semantic-UI-CSS-master/semantic.min.js}"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+    <script src="../../static/lib/prism/prism.js"></script>
+    <script src="../../static/lib/tocbot/tocbot.min.js"></script>
+    <script src="../../static/lib/qrcode/qrcode.min.js"></script>
+    <script src="../../static/lib/waypoints/jquery.waypoints.min.js"></script>
+</th:block>
+
+<script>
+    <!--手机端点击展开导航栏-->
+    $('.me.toggle').click(function (){
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    <!--图标旋转效果-->
+    $('.rotate').hover(function (){
+        $('.rotated').toggleClass('animate__animated animate__flip');
+    });
+</script>
+
+<script>
+    <!--鼠标悬浮展开下拉菜单-->
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+    <!--返回顶部-->
+    $('#toTop-button').popup();
+
+    <!--平滑滚动-->
+    $('#toTop-button').click(function (){
+        $(window).scrollTo(0,500);
+    });
+
+    <!--滚动侦测-->
+    var waypoint = new Waypoint({
+        element: document.getElementById('waypoint'),
+        handler: function(direction){
+            if (direction == 'down'){
+                $('#toolbar').show(100);
+            }else{
+                $('#toolbar').hide(500);
+            }
+            console.log('Scrolled to waypoint!')
+        }
+    })
+</script>
+
+<style>
+    .m-padded-lr-index{
+        padding-left: 7.5em !important;
+        padding-right: 7.5em !important;
+    }
+    body
+    {
+        background:url('../../static/images/background7.jpg');
+        background-color:#cccccc;
+    }
+</style>
+
+</body>
+</html>

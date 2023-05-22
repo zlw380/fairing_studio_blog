@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:fragment="head(title)">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}">fragments</title>
+    <link rel="icon" href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" href="../../static/lib/Semantic-UI-CSS-master/semantic.min.css"
+          th:href="@{/lib/Semantic-UI-CSS-master/semantic.min.css}">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}">
+    <link rel="stylesheet" href="../../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../../static/css/animate.css" th:href="@{/css/animate.css}">
+
+    <link rel="stylesheet" href="../../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../../static/lib/font-awesome/css/font-awesome.min.css" th:href="@{/lib/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="../../static/lib/Pio-master/static/pio.css" th:href="@{/lib/Pio-master/static/pio.css}">
+
+</head>
+
+<body>
+
+<!--导航-->
+    <nav th:fragment="menu(n)" style="background-color:#3E3E3E" class="ui attached segment m-padded-tb-mini m-shadow-small">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <img style="margin-top:15px" class="m-mobile-hide rotate rotated fa-spin" src="../../static/images/fairing.png" th:src="@{/images/fairing.png}" width="34" height="34" >
+                <h2 class="ui yellow header item">后 台 管 理 页 面</h2>
+                <a href="#" class="m-item item m-mobile-hide" th:href="@{/}" target="_blank"><i class="home icon"></i>首页</a>
+                <a href="#" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide"  th:classappend="${n==1} ? 'active'"><i class="file icon"></i>文章</a>
+                <a href="#" th:href="@{/admin/types}" class="m-item item m-mobile-hide"  th:classappend="${n==2} ? 'active'"><i class="folder open icon"></i>分类</a>
+                <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide"  th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
+                <div class="right m-item m-mobile-hide m-mobile-bottommargin menu">
+                    <div class="ui dropdown item">
+                        <div class="text">
+                            <img src="../../static/images/fairing.png" th:src="@{${session.user.avatar}}" class="ui avatar image">
+                            <span th:text="${session.user.nickname}">admin</span>
+                        </div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" style="background-color:#3E3E3E" class="ui me toggle inverted icon button m-right-top m-pc-hide">
+            <i class="sort icon"></i>
+        </a>
+    </nav>
+
+<!--底部footer-->
+<footer th:fragment="footer" class="ui inverted vertical segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="four wide column">
+                <h4 style="margin-top:24px" class="ui inverted header">粉丝群</h4>
+                <img class="" src="../../static/images/fairingstudio2.png" th:src="@{/images/fairingstudio2.png}" alt="" width="100" height="100">
+            </div>
+            <div class="three wide column">
+                <h4 style="margin-top:24px" class="ui inverted header">技术支持</h4>
+                <img style="margin-top:24px" src="../../static/images/fairing.png" th:src="@{/images/fairing.png}" width="38" height="38" >
+                <h6 style="margin-top:4px" class="ui inverted header">整流罩工作室</h6>
+                <!--
+                <div class="ui inverted link list">
+                    <a href="#" class="item">待完善</a><br>
+                    <a href="#" class="item">待完善</a><br>
+                    <a href="#" class="item">待完善</a><br>
+                </div>
+                -->
+            </div>
+            <div class="three wide column">
+                <h4 style="margin-top:24px" class="ui inverted header">友情链接</h4><br>
+                <img src="../../static/images/fairing.png" th:src="@{/images/fairing.png}" align="absmiddle" width="20" height="20">
+                <a href="http://skin.fairingstudio.top/" target="_blank">整流罩皮肤站</a><br><br>
+                <img src="../../static/images/spacedock.png" th:src="@{/images/spacedock.png}" align="absmiddle" width="20" height="20">
+                <a href="https://spacedock.info/" target="_blank">SpaceDock</a>
+            </div>
+            <div class="six wide column">
+                <h4 style="margin-top:24px" class="ui inverted header">关于我们</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">航空航天雷普工作室，关心人类航空航天事业的发展与进步；粉丝群：1090395221</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-minimum">Copyright © 2021-2022 侧卫卫 Designed by 侧卫卫 <a style="color: white" class="beian1 beian2" href="http://beian.miit.gov.cn/" th:href="@{http://beian.miit.gov.cn/}" target="_blank">辽ICP备2021008074号</a></p>
+    </div>
+</footer>
+
+<th:block th:fragment="script">
+    <script src="../../static/js/jquery-3.2.0.min.js" th:src="@{/js/jquery-3.2.0.min.js}"></script>
+    <script src="../../static/lib/Semantic-UI-CSS-master/semantic.min.js" th:src="@{/lib/Semantic-UI-CSS-master/semantic.min.js}"></script>
+    <script src="../../static/lib/jquery.scrollTo-master/jquery.scrollTo.min.js" th:src="@{/lib/jquery.scrollTo-master/jquery.scrollTo.min.js}"></script>
+
+    <script src="../../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+
+    <script>
+        $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+    </script>
+</th:block>
+
+    <script>
+        <!--悬浮出现下划线-->
+        $('.beian1').hover(function (){
+            $('.beian2').toggleClass('m-text-underline');
+        });
+
+        <!--鼠标悬浮展开下拉菜单-->
+        $('.ui.dropdown').dropdown({
+            on: 'hover'
+        });
+
+        <!--返回顶部-->
+        $('#toTop-button').popup();
+
+        <!--平滑滚动-->
+        $('#toTop-button').click(function (){
+            $(window).scrollTo(0,500);
+        });
+
+        <!--滚动侦测-->
+        var waypoint = new Waypoint({
+            element: document.getElementById('waypoint'),
+            handler: function(direction){
+                if (direction == 'down'){
+                    $('#toolbar').show(100);
+                }else{
+                    $('#toolbar').hide(500);
+                }
+                console.log('Scrolled to waypoint!')
+            }
+        })
+    </script>
+
+</body>
+</html>
